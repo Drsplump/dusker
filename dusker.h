@@ -16,11 +16,15 @@ private:
   float _longitude;
   int _time_zone;
   long msmNow;
+  bool opto;
+  bool mode;
+  int x;
+  int y;
   RTC_DS3231 rtc;
   DateTime now = rtc.now();
 
 public:
-  dusker(float, float, int, int);
+  dusker(float, float, int, int,bool);
 };
 
 #endif
