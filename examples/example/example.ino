@@ -1,6 +1,6 @@
-     //activation and deactivation of a predetermined output based on sunrise and sunset times//
+//activation and deactivation of a predetermined output based on sunrise and sunset times//
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "RTClib.h"
 #include "Dusk2Dawn.h"
 #include "time.h"
@@ -19,14 +19,14 @@ void setup()
     while (1)
       ;
   }
-  
+
   //rtc.adjust(DateTime(2020, 5, 6, 20, 45, 45));
 }
 
 void loop()
 {
 
-  dusker(45.6993,8.4622,2,9);           /////latitude,longitude,time zone from UTC,output pin/////////
+  dusker(45.6993, 8.4622, 2, 13,false); /////latitude,longitude,time zone from UTC,output pin,true for opto relay/////////
 
   DateTime now = rtc.now();
 
@@ -47,6 +47,5 @@ void loop()
   msmNow = (now.hour() * 60) + now.minute();
   Serial.println(msmNow);
 
-
   delay(1000);
-}
+} 
