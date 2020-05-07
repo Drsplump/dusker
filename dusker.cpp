@@ -4,7 +4,7 @@
 #include "RTClib.h"
 #include "time.h"
 
-dusker::dusker(float latitude, float longitude, int time_zone, int out)
+dusker::dusker(float latitude, float longitude, int time_zone, int out, bool opto)
 {
     pinMode(out, OUTPUT);
 
@@ -12,6 +12,18 @@ dusker::dusker(float latitude, float longitude, int time_zone, int out)
     _latitude = latitude;
     _longitude = longitude;
     _time_zone = time_zone;
+    mode = opto;
+
+    if (mode == true)
+    {
+        x = LOW;
+        y = HIGH;
+    }
+    else
+    {
+        x = HIGH;
+        y = LOW;
+    }
 
     Dusk2Dawn home(_latitude, _longitude, _time_zone);
 
@@ -21,14 +33,14 @@ dusker::dusker(float latitude, float longitude, int time_zone, int out)
 
     if (msmNow < home_sunrise)
     {
-        digitalWrite(_out, LOW);
+        digitalWrite(_out, x);
     }
     if (msmNow >= home_sunrise)
     {
-        digitalWrite(_out, HIGH);
+        digitalWrite(_out, y);
     }
     if (msmNow >= home_sunset)
     {
-        digitalWrite(_out, LOW);
+        digitalWrite(_out, x);
     }
 }
